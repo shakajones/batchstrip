@@ -2,7 +2,7 @@
 name: Documentation
 about: For admin use only
 title: 'SPIKE: '
-labels: documentation
+labels: documentation, should result in dev ticket
 assignees: ''
 
 ---
@@ -13,4 +13,4 @@ assignees: ''
 
 **Create Cards:**
 
-- List of cards that should be written after this ticket is completed.
+- List of cards that should be written after this ticket is completed. If none, remove associated label.
