@@ -1,7 +1,7 @@
 ---
 name: Documentation
 about: For admin use only
-title: 'ISSUE:'
+title: 'SPIKE: '
 labels: documentation
 assignees: ''
 
