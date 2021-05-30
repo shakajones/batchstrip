@@ -11,6 +11,23 @@ Elixir 1.12/OTP 24 Docker
 Docker Installation (recommended)
 ---------------------------------
 
+**Short version:**
+
+1. `bash  curl -fsSL https://get.docker.com -o get-docker.sh`
+2. `git clone git@github.com:shakajones/groupstrip.git`
+3. `docker compose build`
+4. `docker compose up`
+  a. `-d` flag runs in detatched mode
+  b. instead of 3 & 4, when you're comfortable feel free to run `docker compose up --build` after stopping it if you need to mess with the image or if you're having dependency management issues.
+5. See all running containers with `docker ps` and see all recent images with `docker imasges` 
+6. To use an interactive development console: Is the container currently running?
+  a. if yes, then find the container name (default: groupstrip) and perform `docker exec -it { container_name } iex -S mix phx.server`
+  b. if no, then find the image name (default: emmajhyde/groupstrip:latest) you just built and perform `docker run -it --rm { image_name} iex -S mix phx.server`
+  c. use these same strategies for accessing the container filesystem/shell: `docker exec -it groupstrip /bin/bash` will take you to the shell.
+7. Mounts your app directory into the filesystem, so changes are propagated on the other side when made & the application will live reload. You can try this out: visit `localhost:4000` & mess around with the copy in `lib/groupstrip_web/templates/page/index.html.eex`, and refresh. You should see the application log its recompilation and the request logging, as well as seeing the frontend app!
+
+**Further explanation of steps and hints:**
+
 1.  In order to develop locally with docker, execute: `bash  curl -fsSL https://get.docker.com -o get-docker.sh` (*See more generic docker setup instructions in* [the docker documentation](https://docs.docker.com/get-docker/)*.*)
 
 2.  `git clone` this repository and `cd` in.
@@ -24,8 +41,6 @@ Docker Installation (recommended)
 4.  Execute `docker compose up` to run the image.
 
     -   This will start the docker container and automatically run `mix phx.server` on port `4000`, tailing the debug logs to your console. That's it! It will behave exactly like you are running it locally, but it's actually running on a thin Alpine linux distribution.
-
-    -   **Here are some other tips, especially for debugging:**
 
 5.  Start a container in detached mode with `docker compose up -d`.
 
