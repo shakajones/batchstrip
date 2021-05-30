@@ -28,6 +28,12 @@ defmodule GroupstripWeb.ChannelCase do
     end
   end
 
+
+end
+
+"""
+Pulled out POSTGRES & ecto configs:
+
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Groupstrip.Repo)
 
@@ -37,4 +43,4 @@ defmodule GroupstripWeb.ChannelCase do
 
     :ok
   end
-end
+"""

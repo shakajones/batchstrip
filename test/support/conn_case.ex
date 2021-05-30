@@ -32,6 +32,13 @@ defmodule GroupstripWeb.ConnCase do
   end
 
   setup tags do
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+end
+
+"""
+Pulled out POSTGRES & ecto configs:
+  setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Groupstrip.Repo)
 
     unless tags[:async] do
@@ -40,4 +47,4 @@ defmodule GroupstripWeb.ConnCase do
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-end
+"""
