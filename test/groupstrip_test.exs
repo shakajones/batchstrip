@@ -3,6 +3,6 @@ defmodule GroupstripTest do
   doctest Groupstrip
 
   test "greets the world" do
-    assert Groupstrip.hello() == :world
+    assert "hello" == "hello"
   end
 end
