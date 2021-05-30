@@ -21,19 +21,19 @@ Docker Installation (recommended)
 
 4. `docker compose up`
 
-  a. `-d` flag runs in detatched mode
+    - `-d` flag runs in detatched mode
   
-  b. instead of 3 & 4, when you're comfortable feel free to run `docker compose up --build` after stopping it if you need to mess with the image or if you're having dependency management issues.
+    - instead of 3 & 4, when you're comfortable feel free to run `docker compose up --build` after stopping it if you need to mess with the image or if you're having dependency management issues.
 
 5. See all running containers with `docker ps` and see all recent images with `docker imasges` 
 
 6. To use an interactive development console: Is the container currently running?
   
-  a. if yes, then find the container name (default: groupstrip) and perform `docker exec -it { container_name } iex -S mix phx.server`
+    - if yes, then find the container name (default: groupstrip) and perform `docker exec -it { container_name } iex -S mix phx.server`
   
-  b. if no, then find the image name (default: emmajhyde/groupstrip:latest) you just built and perform `docker run -it --rm { image_name} iex -S mix phx.server`
+    - if no, then find the image name (default: emmajhyde/groupstrip:latest) you just built and perform `docker run -it --rm { image_name} iex -S mix phx.server`
   
-  c. use these same strategies for accessing the container filesystem/shell: `docker exec -it groupstrip /bin/bash` will take you to the shell.
+    - use these same strategies for accessing the container filesystem/shell: `docker exec -it groupstrip /bin/bash` will take you to the shell.
 
 7. Mounts your app directory into the filesystem, so changes are propagated on the other side when made & the application will live reload. You can try this out: visit `localhost:4000` & mess around with the copy in `lib/groupstrip_web/templates/page/index.html.eex`, and refresh. You should see the application log its recompilation and the request logging, as well as seeing the frontend app!
 
