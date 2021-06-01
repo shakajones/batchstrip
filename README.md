@@ -80,7 +80,19 @@ A manual installation is helpful in terms of using the CLI tooling whether or no
 
 ### Installation
 
-Either way, non-dockerized installation instructions: 1. Install asdf with `brew install asdf` 1. Install plugin for elixir with `asdf add plugin elixir` 1. Install needed Elixir version with `asdf install elixir 1.12.1-otp-24` 1. Enable necessary Elixir version with `asdf shell elixir 1.12.1-otp-24` - The `.tool-versions` file will automatically enable this elixir version when you cd into the directory from now on (requires asdf to be installed). 5. Hex is the Elixir package manager, but it is not installed automatically. You can install Hex with `mix local.hex`. 1. Check that the correct versions are enabled with `elixir -v`.
+Either way, non-dockerized installation instructions: 
+
+1. Install asdf with `brew install asdf` 
+
+2. Install plugin for elixir with `asdf add plugin elixir` 
+
+3. Install needed Elixir version with `asdf install elixir 1.12.1-otp-24`
+
+4. Enable necessary Elixir version with `asdf shell elixir 1.12.1-otp-24` - The `.tool-versions` file will automatically enable this elixir version when you cd into the directory from now on (requires asdf to be installed). 
+
+5. Hex is the Elixir package manager, but it is not installed automatically. You can install Hex with `mix local.hex`. 
+
+6. Check that the correct versions are enabled with `elixir -v`.
 
 ### Development
 
