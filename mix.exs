@@ -34,9 +34,8 @@ defmodule Groupstrip.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.5.9"},
-#      {:phoenix_ecto, "~> 4.1"},
-#      {:ecto_sql, "~> 3.4"},
-#      {:postgrex, ">= 0.0.0"},
+      {:phoenix_live_view, "~> 0.15.1"},
+      {:floki, ">= 0.30.0", only: :test},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.4"},
@@ -56,10 +55,7 @@ defmodule Groupstrip.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "cmd npm install --prefix assets"], # "ecto.create --quiet", "ecto.migrate --quiet",
-      #"ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      #"ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["test"] # "ecto.create --quiet", "ecto.migrate --quiet",
+      setup: ["deps.get", "cmd npm install --prefix assets"]
     ]
   end
 end

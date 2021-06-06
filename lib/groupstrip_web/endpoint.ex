@@ -7,7 +7,7 @@ defmodule GroupstripWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_groupstrip_key",
-    signing_salt: "M9jn73Do"
+    signing_salt: "Sl4VtDBP"
   ]
 
   socket "/socket", GroupstripWeb.UserSocket,
@@ -32,7 +32,6 @@ defmodule GroupstripWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-#    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :groupstrip
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

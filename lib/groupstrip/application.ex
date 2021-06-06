@@ -7,8 +7,6 @@ defmodule Groupstrip.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      # Groupstrip.Repo,
       # Start the Telemetry supervisor
       GroupstripWeb.Telemetry,
       # Start the PubSub system
