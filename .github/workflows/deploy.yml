@@ -33,4 +33,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       - name: Deploy
-        run: docker push emmajhyde/groupstrip:latest
+        run: docker push emmajhyde/batchstrip:latest

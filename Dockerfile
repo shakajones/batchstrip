@@ -1,17 +1,42 @@
-FROM emmajhyde/elixir-node-alpine
+# Dockerfile
+FROM elixir:1.6.5-alpine as build
 
+# install build dependencies
+RUN apk add --update git
+
+# prepare build dir
 RUN mkdir /app
-
-COPY mix.exs /app/mix.exs
-COPY assets/package.json /app/assets/package.json
-COPY entrypoint.sh /app/entrypoint.sh
-
 WORKDIR /app
 
-RUN mix local.hex --force
-RUN mix local.rebar --force
+# install hex + rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
 
-RUN mix deps.get
-RUN npm install --prefix assets
+# set build ENV
+ENV MIX_ENV=prod
 
-CMD ["/app/entrypoint.sh"]
+# install mix dependencies
+COPY mix.exs mix.lock ./
+COPY config ./
+COPY deps ./
+RUN mix deps.compile
+
+# build release
+COPY . .
+RUN mix release --no-tar --verbose
+
+# prepare release image
+FROM alpine:3.6
+RUN apk add --update bash openssl
+
+RUN mkdir /app && chown -R nobody: /app
+WORKDIR /app
+USER nobody
+
+COPY --from=build /app/_build/prod/rel/batchstrip ./
+
+ENV REPLACE_OS_VARS=true
+ENV HTTP_PORT=4000 BEAM_PORT=14000 ERL_EPMD_PORT=24000
+EXPOSE $HTTP_PORT $BEAM_PORT $ERL_EPMD_PORT
+
+ENTRYPOINT ["/app/bin/batchstrip"]

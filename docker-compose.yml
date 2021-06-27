@@ -9,8 +9,8 @@ services:
     build:
       # Here we define that it should build from the current directory
       context: .
-    image: emmajhyde/groupstrip:latest
-    container_name: groupstrip
+    image: emmajhyde/batchstrip:latest
+    container_name: batchstrip
     ports:
       # Mapping the port to make the Phoenix app accessible outside of the container
       - 4000:4000

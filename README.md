@@ -1,7 +1,7 @@
-Groupstrip
+Batchstrip
 ==========
 
-GroupStrip is a OS-agnostic batch management platform inspired by [MKVOptimizer](https://www.videohelp.com/software/MKV-Optimizer). It runs in a dockerized container with a locally accessible Web GUI, much like [Sonarr](https://github.com/Sonarr/Sonarr) (has queue, can have different directories formatting differently, asynchronous processes), and integrates with [MKVToolNix](https://mkvtoolnix.download) to provide easy batch management for baked-in tracks on your video files.
+BatchStrip is a OS-agnostic batch management platform inspired by [MKVOptimizer](https://www.videohelp.com/software/MKV-Optimizer). It runs in a dockerized container with a locally accessible Web GUI, much like [Sonarr](https://github.com/Sonarr/Sonarr) (has queue, can have different directories formatting differently, asynchronous processes), and integrates with [MKVToolNix](https://mkvtoolnix.download) to provide easy batch management for baked-in tracks on your video files.
 
 Requirements
 ------------
@@ -15,27 +15,23 @@ Docker Installation (recommended)
 
 1. `bash  curl -fsSL https://get.docker.com -o get-docker.sh`
 
-2. `git clone git@github.com:shakajones/groupstrip.git`
+2. `git clone git@github.com:shakajones/batchstrip.git`
 
 3. `docker compose build`
 
 4. `docker compose up`
 
     - `-d` flag runs in detatched mode
-  
     - instead of 3 & 4, when you're comfortable feel free to run `docker compose up --build` after stopping it if you need to mess with the image or if you're having dependency management issues.
 
 5. See all running containers with `docker ps` and see all recent images with `docker imasges` 
 
 6. To use an interactive development console: Is the container currently running?
-  
-    - if yes, then find the container name (default: groupstrip) and perform `docker exec -it { container_name } iex -S mix phx.server`
-  
-    - if no, then find the image name (default: emmajhyde/groupstrip:latest) you just built and perform `docker run -it --rm { image_name} iex -S mix phx.server`
-  
-    - use these same strategies for accessing the container filesystem/shell: `docker exec -it groupstrip /bin/bash` will take you to the shell.
-
 7. Mounts your app directory into the filesystem, so changes are propagated on the other side when made & the application will live reload. You can try this out: visit `localhost:4000` & mess around with the copy in `lib/groupstrip_web/templates/page/index.html.eex`, and refresh. You should see the application log its recompilation and the request logging, as well as seeing the frontend app!
+  a. if yes, then find the container name (default: batchstrip) and perform `docker exec -it { container_name } iex -S mix phx.server`
+  b. if no, then find the image name (default: emmajhyde/batchstrip:latest) you just built and perform `docker run -it --rm { image_name} iex -S mix phx.server`
+  c. use these same strategies for accessing the container filesystem/shell: `docker exec -it batchstrip /bin/bash` will take you to the shell.
+7. Mounts your app directory into the filesystem, so changes are propagated on the other side when made & the application will live reload. You can try this out: visit `localhost:4000` & mess around with the copy in `lib/batchstrip_web/templates/page/index.html.eex`, and refresh. You should see the application log its recompilation and the request logging, as well as seeing the frontend app!
 
 **Further explanation of steps and hints:**
 
@@ -63,11 +59,11 @@ Docker Installation (recommended)
     docker exec -it { container_name } /bin/bash
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    The container name is most likely `groupstrip_phoenix_1`.
+    The container name is most likely `batchstrip_phoenix_1`.
 
     -   This will shell you into the container and its filesystem, much like `ssh`.
 
-    -   If you'd like to start the interactive console, you have to run the build image instead of the compose specified `up` process: `elixir   docker run -it --rm groupstrip:latest iex -S mix phx.server` Where `groupstrip:latest` is the image name.
+    -   If you'd like to start the interactive console, you have to run the build image instead of the compose specified `up` process: `elixir   docker run -it --rm batchstrip:latest iex -S mix phx.server` Where `batchstrip:latest` is the image name.
 
     -   using `docker images` will show you all of the images you have recently built.
 
@@ -100,7 +96,7 @@ Either way, non-dockerized installation instructions:
 
 2.  Start Phoenix endpoint from root with `mix phx.server`
 
-3.  Run the Groupstrip instide IEx (Interactive Elixir, basically, `rails console`) with `iex -S mix phx.server`
+3.  Run the Batchstrip instide IEx (Interactive Elixir, basically, `rails console`) with `iex -S mix phx.server`
 
 Now you can visit [localhost:4000](http://localhost:4000) from your browser.
 
@@ -130,10 +126,10 @@ Learn more
 
 -   Source: https://github.com/phoenixframework/phoenix
 
-Groupstrip
+Batchstrip
 ==========
 
-GroupStrip is a OS-agnostic batch management platform inspired by [MKVOptimizer](https://www.videohelp.com/software/MKV-Optimizer). It runs in a dockerized container with a locally accessible Web GUI, much like [Sonarr](https://github.com/Sonarr/Sonarr) (has queue, can have different directories formatting differently, asynchronous processes), and integrates with [MKVToolNix](https://mkvtoolnix.download) to provide easy batch management for baked-in tracks on your video files.
+BatchStrip is a OS-agnostic batch management platform inspired by [MKVOptimizer](https://www.videohelp.com/software/MKV-Optimizer). It runs in a dockerized container with a locally accessible Web GUI, much like [Sonarr](https://github.com/Sonarr/Sonarr) (has queue, can have different directories formatting differently, asynchronous processes), and integrates with [MKVToolNix](https://mkvtoolnix.download) to provide easy batch management for baked-in tracks on your video files.
 
 Requirements
 ------------
@@ -146,17 +142,17 @@ Docker Installation (recommended)
 **Short version:**
 
 1. `bash  curl -fsSL https://get.docker.com -o get-docker.sh`
-2. `git clone git@github.com:shakajones/groupstrip.git`
+2. `git clone git@github.com:shakajones/batchstrip.git`
 3. `docker compose build`
 4. `docker compose up`
    a. `-d` flag runs in detatched mode
    b. instead of 3 & 4, when you're comfortable feel free to run `docker compose up --build` after stopping it if you need to mess with the image or if you're having dependency management issues.
 5. See all running containers with `docker ps` and see all recent images with `docker imasges`
 6. To use an interactive development console: Is the container currently running?
-   a. if yes, then find the container name (default: groupstrip) and perform `docker exec -it { container_name } iex -S mix phx.server`
-   b. if no, then find the image name (default: emmajhyde/groupstrip:latest) you just built and perform `docker run -it --rm { image_name} iex -S mix phx.server`
-   c. use these same strategies for accessing the container filesystem/shell: `docker exec -it groupstrip /bin/bash` will take you to the shell.
-7. Mounts your app directory into the filesystem, so changes are propagated on the other side when made & the application will live reload. You can try this out: visit `localhost:4000` & mess around with the copy in `lib/groupstrip_web/templates/page/index.html.eex`, and refresh. You should see the application log its recompilation and the request logging, as well as seeing the frontend app!
+   a. if yes, then find the container name (default: batchstrip) and perform `docker exec -it { container_name } iex -S mix phx.server`
+   b. if no, then find the image name (default: emmajhyde/batchstrip:latest) you just built and perform `docker run -it --rm { image_name} iex -S mix phx.server`
+   c. use these same strategies for accessing the container filesystem/shell: `docker exec -it batchstrip /bin/bash` will take you to the shell.
+7. Mounts your app directory into the filesystem, so changes are propagated on the other side when made & the application will live reload. You can try this out: visit `localhost:4000` & mess around with the copy in `lib/batchstrip_web/templates/page/index.html.eex`, and refresh. You should see the application log its recompilation and the request logging, as well as seeing the frontend app!
 
 **Further explanation of steps and hints:**
 
@@ -184,11 +180,11 @@ Docker Installation (recommended)
     docker exec -it { container_name } /bin/bash
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    The container name is most likely `groupstrip_phoenix_1`.
+    The container name is most likely `batchstrip_phoenix_1`.
 
     -   This will shell you into the container and its filesystem, much like `ssh`.
 
-    -   If you'd like to start the interactive console, you have to run the build image instead of the compose specified `up` process: `elixir   docker run -it --rm groupstrip:latest iex -S mix phx.server` Where `groupstrip:latest` is the image name.
+    -   If you'd like to start the interactive console, you have to run the build image instead of the compose specified `up` process: `elixir   docker run -it --rm batchstrip:latest iex -S mix phx.server` Where `batchstrip:latest` is the image name.
 
     -   using `docker images` will show you all of the images you have recently built.
 
@@ -209,7 +205,7 @@ Either way, non-dockerized installation instructions: 1. Install asdf with `brew
 
 2.  Start Phoenix endpoint from root with `mix phx.server`
 
-3.  Run the Groupstrip instide IEx (Interactive Elixir, basically, `rails console`) with `iex -S mix phx.server`
+3.  Run the Batchstrip instide IEx (Interactive Elixir, basically, `rails console`) with `iex -S mix phx.server`
 
 Now you can visit [localhost:4000](http://localhost:4000) from your browser.
 

@@ -8,11 +8,11 @@
 use Mix.Config
 
 # Configures the endpoint
-config :groupstrip, GroupstripWeb.Endpoint,
+config :batchstrip, BatchstripWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "KKIf/2l/SVvp7XXtA4LmBjYD/wmahgrlWWMPcR1w2ZB+WpN/vcPy639Z3GticwQR",
-  render_errors: [view: GroupstripWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Groupstrip.PubSub,
+  render_errors: [view: BatchstripWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Batchstrip.PubSub,
   live_view: [signing_salt: "8VYbv1FZ"]
 
 # Configures Elixir's Logger

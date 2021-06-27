@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :groupstrip, GroupstripWeb.Endpoint,
+config :batchstrip, BatchstripWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -46,13 +46,13 @@ config :groupstrip, GroupstripWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :groupstrip, GroupstripWeb.Endpoint,
+config :batchstrip, BatchstripWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/groupstrip_web/(live|views)/.*(ex)$",
-      ~r"lib/groupstrip_web/templates/.*(eex)$"
+      ~r"lib/batchstrip_web/(live|views)/.*(ex)$",
+      ~r"lib/batchstrip_web/templates/.*(eex)$"
     ]
   ]
 
