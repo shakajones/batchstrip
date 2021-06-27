@@ -1,0 +1,31 @@
+name: Build, Test, Deploy Prod
+on:
+  release:
+    types: [published]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: PRODUCTION
+    env:
+      TAG_NAME: ${{ github.event.release.tag_name }}
+      SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Testing Suite & Compile Production Build
+        run: docker buildx bake -f ./docker/prod-compose.yml -t emmajhyde/batchstrip:${{ env.TAG_NAME }}
+
+      - name: Run Production Build
+        run: docker-compose up -d -f ./docker/prod-compose.yml
+
+      - name: Authorize Deployment Procedure
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Deploy `docker.io/emmajhyde/batchstrip` Image to DockerHub
+        run: docker push emmajhyde/batchstrip:${{ env.TAG_NAME }}

@@ -1,0 +1,32 @@
+name: Build & Test Dev
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: PRODUCTION
+    env:
+      SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Test & Compile PR Build
+        run: docker buildx bake -f ./docker/prod-compose.yml -t emmajhyde/batchstrip:latest
+
+      - name: Run PR Build
+        run: docker-compose up -d -f ./docker/prod-compose.yml -t emmajhyde/batchstrip:latest
+
+      - name: Authorize Deployment Procedure
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Deploy `docker.io/emmajhyde/batchstrip` Image to DockerHub
+        run: docker push emmajhyde/batchstrip:latest

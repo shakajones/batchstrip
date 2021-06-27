@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  batchstrip:
+    container_name: batchstrip
+    build:
+      # build from current directory
+      context: ../
+      dockerfile: docker/ProdDockerfile
+    environment:
+      HTTP_PORT: 4000
+      BEAM_PORT: 14000
+      ERL_EPMD_PORT: 24000
+      REPLACE_OS_VARS: "true"
+      HOME: /app
+    # expose internal (docker) port 4000 to external (host) port 4000
+    # allowing user to access at http://localhost:4000
+    ports:
+      - 4000:4000
