@@ -1,10 +1,8 @@
 FROM node:14-alpine AS node
 
 FROM elixir:1.12-alpine AS build
-
-# set build ENV
 ENV MIX_ENV=prod
-ENV NODE_ENV=prod
+ENV NODE_ENV=production
 
 # install build dependencies
 RUN apk add --update git vim bash
@@ -36,18 +34,15 @@ RUN mix do phx.digest, release
 
 # prepare release image
 FROM alpine:3.14 AS app
-RUN apk add --update --no-cache libstdc++ libgcc openssl
+
+RUN apk add --update --no-cache libstdc++ libgcc openssl ncurses-libs
 
 RUN mkdir /app && chown -R nobody:nobody /app
 WORKDIR /app
+
 USER nobody:nobody
 
 # copy only the release build from the other image
 COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/batchstrip ./
-
-ENV REPLACE_OS_VARS=true
-ENV HTTP_PORT=4000 BEAM_PORT=14000 ERL_EPMD_PORT=24000
-EXPOSE $HTTP_PORT $BEAM_PORT $ERL_EPMD_PORT
-ENV HOME=/app
 
 CMD ["bin/batchstrip", "start"]

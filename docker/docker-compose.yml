@@ -2,12 +2,19 @@ version: '3.8'
 
 services:
   batchstrip:
-    image: emmajhyde/batchstrip:latest
-    container_name: batchstrip
+    image: batchstrip:latest
+    container_name: batchstrip-dev
     build:
       # build from current directory
-      context: .
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    environment:
+      HTTP_PORT: 4000
+      BEAM_PORT: 14000
+      ERL_EPMD_PORT: 24000
     # expose internal (docker) port 4000 to external (host) port 4000
     # allowing user to access at http://localhost:4000
     ports:
       - 4000:4000
+    volumes:
+      - ../:/app/

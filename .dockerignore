@@ -2,7 +2,6 @@
 assets/node_modules
 .github
 batchstrip.iml
-entrypoint.sh
 README.md
 .nvmrc
 .tool-versions
