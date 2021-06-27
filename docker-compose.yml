@@ -15,18 +15,6 @@ services:
       # Mapping the port to make the Phoenix app accessible outside of the container
       - 4000:4000
     # set directory locations that will actually mount the host directories
-    volumes:
-#      - ./:/app/
-#      - /app/assets/node_modules
-#      - /app/deps
-      - ./assets:/app/assets
-      - /app/assets/node_modules
-      - ./config:/app/config
-      - ./lib:/app/lib
-      - ./priv:/app/priv
-      - ./test:/app/test
-      #- /app/_build
-
   ### Removed POSTGRES configurations:
   # services: phoenix: environment:
   # Variables to connect to our Postgres server

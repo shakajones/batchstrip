@@ -50,7 +50,7 @@ defmodule Batchstrip.MixProject do
 
       # test environment only
       {:floki, ">= 0.30.0", only: :test},
-      {:espec, "~> 1.8.3", only: :test}
+      {:espec, "~> 1.8.3"}
     ]
   end
 
