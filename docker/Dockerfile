@@ -27,7 +27,7 @@ WORKDIR /app
 # install hex + rebar
 RUN mix do local.hex --force, local.rebar --force
 
-COPY ./docker/entrypoint.sh .
-
-ENTRYPOINT ["/app/docker/entrypoint.sh"]
+COPY . .
+RUN mix phx.digest
+ENTRYPOINT ["./docker/entrypoint.sh"]
 

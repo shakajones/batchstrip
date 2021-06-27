@@ -12,14 +12,18 @@ jobs:
     env:
       TAG_NAME: ${{ github.event.release.tag_name }}
       SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+      PROD_BUILD_NAME: emmajhyde/batchstrip:${{ TAG_NAME }}
     steps:
       - uses: actions/checkout@v2
 
       - name: Run Testing Suite & Compile Production Build
-        run: docker buildx bake -f ./docker/prod-compose.yml -t emmajhyde/batchstrip:${{ env.TAG_NAME }}
+        run: COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker/prod-compose.yml build --no-cache
 
       - name: Run Production Build
-        run: docker-compose up -d -f ./docker/prod-compose.yml
+        run: COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker/prod-compose.yml up -d
+
+      - name: Tag Production Build
+        run: docker tag batchstrip:latest ${{ PROD_BUILD_NAME }}
 
       - name: Authorize Deployment Procedure
         uses: docker/login-action@v1
@@ -28,4 +32,4 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Deploy `docker.io/emmajhyde/batchstrip` Image to DockerHub
-        run: docker push emmajhyde/batchstrip:${{ env.TAG_NAME }}
+        run: docker push ${{ PROD_BUILD_NAME }}

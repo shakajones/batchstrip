@@ -1,15 +1,9 @@
-FROM node:14-alpine AS node
-
 FROM elixir:1.12-alpine AS build
 ENV MIX_ENV=prod
 ENV NODE_ENV=production
 
 # install build dependencies
 RUN apk add --update git vim bash
-COPY --from=node /usr/local/bin/node /usr/local/bin/node
-COPY --from=node /usr/local/lib/node_modules/ /usr/local/lib/node_modules
-RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
-RUN ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 # prepare build dir
 RUN mkdir /app
@@ -19,18 +13,33 @@ WORKDIR /app
 RUN mix do local.hex --force, local.rebar --force
 
 # install mix dependencies
+COPY config/ ./config/
 COPY mix.exs mix.lock ./
-COPY config config
-RUN mix do deps.get, compile
+RUN mix deps.get
+RUN mix deps.compile
 
-# install node depedencies & perform webpack deploy for production
-COPY assets/package.json assets/package-lock.json ./assets/
-RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
+FROM node:14-alpine AS node
 
-# test, and build release w/ static assets
+RUN mkdir -p /app/assets
+COPY --from=build /app/deps /app/deps
+WORKDIR /app/assets
+
+COPY assets/ ./
+RUN rm -rf ./node_modules
+
+RUN npm ci --progress=false --no-audit --loglevel=error
+RUN ./node_modules/webpack/bin/webpack.js --mode="production"
+
+FROM build AS release
 COPY . .
+
+COPY --from=node --chown=nobody:nobody /app/priv/static/ ./priv/static
+COPY --from=node --chown=nobody:nobody /app/assets/ ./assets
+
+RUN mix phx.digest
+RUN mix release
+
 RUN mix test
-RUN mix do phx.digest, release
 
 # prepare release image
 FROM alpine:3.14 AS app
@@ -39,10 +48,9 @@ RUN apk add --update --no-cache libstdc++ libgcc openssl ncurses-libs
 
 RUN mkdir /app && chown -R nobody:nobody /app
 WORKDIR /app
-
+COPY --from=release --chown=nobody:nobody /app/_build/prod/rel/batchstrip ./
 USER nobody:nobody
 
-# copy only the release build from the other image
-COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/batchstrip ./
 
+# copy only the release build from the other image
 CMD ["bin/batchstrip", "start"]
