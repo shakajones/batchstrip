@@ -1,5 +1,4 @@
 [
-  import_deps: [:phoenix], # :ecto,
-  inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"] #, "priv/*/seeds.exs",
-  # subdirectories: ["priv/*/migrations"]
+  import_deps: [:phoenix],
+  inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]
 ]

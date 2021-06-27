@@ -8,12 +8,12 @@
 use Mix.Config
 
 # Configures the endpoint
-config :groupstrip, GroupstripWeb.Endpoint,
+config :batchstrip, BatchstripWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "/lqiJNWLnsxVsz6Iik88h0ojGlvtP3Acb3uCp65EmhRgcyuNGG/sDANqmtiUKT6m",
-  render_errors: [view: GroupstripWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Groupstrip.PubSub,
-  live_view: [signing_salt: "ttY0S6NV"]
+  secret_key_base: "KKIf/2l/SVvp7XXtA4LmBjYD/wmahgrlWWMPcR1w2ZB+WpN/vcPy639Z3GticwQR",
+  render_errors: [view: BatchstripWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Batchstrip.PubSub,
+  live_view: [signing_salt: "8VYbv1FZ"]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -26,10 +26,3 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
-
-"""
-Pulled out POSTGRES & ecto configs:
-
-config :groupstrip,
-  ecto_repos: [Groupstrip.Repo]
-"""
