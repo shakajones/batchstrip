@@ -24,12 +24,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Test & Compile Production Build
-        run: DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose build
-      - name: Authorization
+      - name: Run Testing Suite & Compile Production Build
+        run: docker buildx bake
+
+      - name: Run Production Build
+        run: docker-compose up -d
+
+      - name: Authorize Deployment Procedure
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
-      - name: Deploy
+          username: ${{ env.DOCKER_USER }}
+          password: ${{ env.DOCKER_ACCESS_TOKEN }}
+
+      - name: Deploy `docker.io/emmajhyde/batchstrip` Image to DockerHub
         run: docker push emmajhyde/batchstrip:latest
