@@ -2,11 +2,12 @@ version: '3.8'
 
 services:
   batchstrip:
-    container_name: batchstrip
+    image: batchstrip:latest
+    container_name: batchstrip_prd
     build:
       # build from current directory
       context: ../
-      dockerfile: docker/ProdDockerfile
+      dockerfile: ./docker/ProdDockerfile
     environment:
       HTTP_PORT: 4000
       BEAM_PORT: 14000

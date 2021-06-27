@@ -3,7 +3,7 @@ version: '3.8'
 services:
   batchstrip:
     image: batchstrip:latest
-    container_name: batchstrip-dev
+    container_name: batchstrip_dev
     build:
       # build from current directory
       context: ../
@@ -17,4 +17,4 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - ../:/app/
+      - ../:/app
