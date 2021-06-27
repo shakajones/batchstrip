@@ -1,0 +1,16 @@
+.idea
+assets/node_modules
+.github
+batchstrip.iml
+entrypoint.sh
+README.md
+.nvmrc
+.tool-versions
+.priv
+deps
+_build
+.vscode
+.git
+coverage
+CONTRIBUTING.md
+priv
